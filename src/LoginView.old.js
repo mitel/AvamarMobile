@@ -1,6 +1,4 @@
 import React from 'react-native';
-import { connect } from 'react-redux/native';
-import { callPath } from 'redux-falcor';
 
 const {
   StyleSheet,
@@ -10,27 +8,13 @@ const {
   View,
 } = React;
 
-function mapStateToProps(state) {
-  return {
-    falcorModel: state.entities,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    falcorCall: (...args) => dispatch(callPath(...args)),
-  };
-}
-
-const LoginViewContent = React.createClass({
+export const LoginView = React.createClass({
 
   propTypes: {
-    navigator: React.PropTypes.object, // prop coming from AvamarMobile component
-    falcorModel: React.PropTypes.object, // prop coming via redux-connect
-    falcorCall: React.PropTypes.func, // prop coming via redux-connect
+    navigator: React.PropTypes.object,
+    falcor: React.PropTypes.object,
   },
 
-  // local state outside of redux
   getInitialState: () => {
     return {
       username: '',
@@ -41,7 +25,7 @@ const LoginViewContent = React.createClass({
   // logs in and then pushes the next page into the navigator
   _onSubmitPressed: async function() {
     const { username, password } = this.state;
-    const resp = await this.props.falcorCall(['session', 'login'], [username, password]);
+    const resp = await this.props.falcor.call(['session', 'login'], [username, password]);
     if (resp.json.authToken) {
       // console.log(resp.json.authToken);
       this.props.navigator.push({ id: 'menu' });
@@ -114,5 +98,3 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
 });
-
-export const LoginView = connect(mapStateToProps, mapDispatchToProps)(LoginViewContent);

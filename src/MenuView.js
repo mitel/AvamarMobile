@@ -10,7 +10,6 @@ export const MenuView = React.createClass({
 
   propTypes: {
     navigator: React.PropTypes.object,
-    falcor: React.PropTypes.object,
   },
 
   render: function() {

@@ -30,6 +30,9 @@ var config = {
         path.resolve(__dirname, 'node_modules/falcor-http-datasource'),
         path.resolve(__dirname, 'node_modules/apsl-react-native-button'),
         path.resolve(__dirname, 'node_modules/react-native'),
+        path.resolve(__dirname, 'node_modules/redux'),
+        path.resolve(__dirname, 'node_modules/redux-falcor'),
+        path.resolve(__dirname, 'node_modules/react-redux'),
       ],
       loader: 'babel',
       query: {
