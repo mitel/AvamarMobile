@@ -18,6 +18,7 @@ import HttpDataSource from 'falcor-http-datasource';
 
 import { LoginView } from './LoginView';
 import { MenuView } from './MenuView';
+import { ResourcePoolForm } from './ResourcePoolForm';
 
 const {
 	AppRegistry,
@@ -48,6 +49,8 @@ const AvamarMobile = React.createClass({
     switch (route.id) {
     case 'menu':
       return <MenuView navigator={nav} />;
+    case 'resourcePool':
+      return <ResourcePoolForm navigator={nav} />;
     default:
       return <LoginView navigator={nav} />;
     }

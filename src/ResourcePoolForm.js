@@ -1,6 +1,9 @@
 import React from 'react-native';
 import { connect } from 'react-redux/native';
-import { callPath } from 'redux-falcor';
+import { callPath, retrieveValue } from 'redux-falcor';
+
+import { SidemenuContent } from './SidemenuContent';
+import { sideMenuWrapper } from './sideMenuWrapper';
 
 const {
   StyleSheet,
@@ -19,22 +22,23 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     falcorCall: (...args) => dispatch(callPath(...args)),
+    falcorRetrieveValue: (...args) => dispatch(retrieveValue(...args)),
   };
 }
 
-const LoginViewContent = React.createClass({
+const ResourcePoolFormView = React.createClass({
 
   propTypes: {
     navigator: React.PropTypes.object, // prop coming from AvamarMobile component
-    falcorModel: React.PropTypes.object, // prop coming via redux-connect
-    falcorCall: React.PropTypes.func, // prop coming via redux-connect
+    falcorModel: React.PropTypes.object, // prop coming via mapProps/connect
+    falcorCall: React.PropTypes.func, // prop coming via mapDispatch/connect
+    falcorRetrieveValue: React.PropTypes.func, // prop coming via mapDispatch/connect
   },
 
   // local state outside of redux
   getInitialState: () => {
     return {
-      username: '',
-      password: '',
+      name: '',
       message: '',
     };
   },
@@ -42,19 +46,20 @@ const LoginViewContent = React.createClass({
   // logs in and then pushes the next page into the navigator
   _onSubmitPressed: async function() {
     this.setState({...this.state, message: ''});
-    const { username, password } = this.state;
-
-    // testing, delete this line and uncomment below
-    // this.props.navigator.replace({ id: 'menu' });
+    const { name } = this.state;
 
     try {
-      // equivallent to falcor.model.call(...)
-      const resp = await this.props.falcorCall(['session', 'login'], [username, password]);
-      console.log(resp);
-      if (('json' in resp) && ('authToken' in resp.json)) { // test if resp object has json.authToken property
-        this.props.navigator.replace({ id: 'menu' });
+      const authToken = await this.props.falcorRetrieveValue(['authToken']);
+      const serviceProviderId = await this.props.falcorRetrieveValue(['serviceProvider']);
+      const resp = await this.props.falcorCall(['resourcePool', 'create'], [authToken, serviceProviderId, name]);
+      // console.log(resp);
+      if (('json' in resp) && ('resourcePool' in resp.json)) {
+        this.setState({...this.state,
+          message: 'Resource Pool created, you may now create a Data Protection Resource',
+          name: '',
+        });
       } else {
-        this.setState({...this.state, message: 'no authtoken received'});
+        this.setState({...this.state, message: 'Error occured'});
       }
     } catch (err) {
       console.log(err);
@@ -66,20 +71,14 @@ const LoginViewContent = React.createClass({
     return (
       <View style={styles.container}>
         <Text style={styles.title}>
-          Sign In
+          Create a new Resource Pool
         </Text>
         <View>
           <TextInput
-            placeholder="admin"
-            onChange={(event) => this.setState({username: event.nativeEvent.text})}
+            placeholder="name"
+            onChange={(event) => this.setState({name: event.nativeEvent.text})}
             style={styles.formInput}
             value={this.state.username} />
-          <TextInput
-            placeholder="password"
-            secureTextEntry
-            onChange={(event) => this.setState({password: event.nativeEvent.text})}
-            style={styles.formInput}
-            value={this.state.password} />
           <TouchableHighlight onPress={this._onSubmitPressed} style={styles.button}>
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableHighlight>
@@ -132,4 +131,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export const LoginView = connect(mapStateToProps, mapDispatchToProps)(LoginViewContent);
+const ResourcePoolComponent = connect(mapStateToProps, mapDispatchToProps)(ResourcePoolFormView);
+export const ResourcePoolForm = sideMenuWrapper(ResourcePoolComponent, SidemenuContent);

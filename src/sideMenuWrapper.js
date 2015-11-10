@@ -12,7 +12,7 @@ import Drawer from 'react-native-drawer';
   https://gist.github.com/sebmarkbage/ef0bf1f338a7182b6775
   https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750
 
-  this is a HOC that wrapps an existing component by adding a side menu drawer
+  this is a HOC that wrapps an existing component by adding a side menu drawer.
   may be used to wrap any view with a drawer having a custom sidemenu content
 */
 
@@ -25,7 +25,9 @@ const sidebarHOC = (MainContent, SidemenuContent) => React.createClass({
   render() {
     return (
       <Drawer ref="drawer"
-              content={<SidemenuContent closeDrawer={() => {this.refs.drawer.close();}}/>}
+              content={<SidemenuContent
+                              closeDrawer={() => {this.refs.drawer.close();}}
+                              navigator={this.props.navigator}/>}
               openDrawerOffset={90}
               type="displace"
               // acceptTap
@@ -37,7 +39,7 @@ const sidebarHOC = (MainContent, SidemenuContent) => React.createClass({
 
 });
 
-// this HoC is going to wrap my main app component
+// this HoC is going to wrap a certain view
 // at the same time the HoC itself may be wrapped using the connect/redux-react as it is a component
 // 'interested' in the application state (as i keep the SideMenu state as part of the app state)
 export const sideMenuWrapper = (MainContent, SidemenuContent) => sidebarHOC(MainContent, SidemenuContent);

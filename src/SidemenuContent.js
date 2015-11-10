@@ -10,19 +10,57 @@ const {
 export const SidemenuContent = React.createClass({
   propTypes: {
     closeDrawer: React.PropTypes.func,
+    navigator: React.PropTypes.object,
   },
   render: function() {
     return (
       <View style={styles.container}>
-        <Text style={styles.textStyle6}>test</Text>
+        <Text style={styles.textStyle}>Create SP Resources</Text>
         <Button
           // isLoading
           style={styles.buttonStyle7}
           textStyle={styles.textStyle6}
           onPress={() => {
-            this.props.closeDrawer(); // de vazut cum modific asta, am nevoie de o referinta la drawer din menu content
+            this.props.navigator.replace({ id: 'resourcePool' });
+            // this.props.closeDrawer(); // don't do that after navigating away!!
           }}>
-          Hello
+          Resource Pool
+        </Button>
+        <Button
+          // isLoading
+          style={styles.buttonStyle7}
+          textStyle={styles.textStyle6}
+          onPress={() => {
+            this.props.closeDrawer();
+          }}>
+          Data Protection Res.
+        </Button>
+        <Button
+          // isLoading
+          style={styles.buttonStyle7}
+          textStyle={styles.textStyle6}
+          onPress={() => {
+            this.props.closeDrawer();
+          }}>
+          Tenant
+        </Button>
+        <Button
+          // isLoading
+          style={styles.buttonStyle7}
+          textStyle={styles.textStyle6}
+          onPress={() => {
+            this.props.closeDrawer();
+          }}>
+          Res. Share
+        </Button>
+        <Button
+          // isLoading
+          style={styles.buttonStyle7}
+          textStyle={styles.textStyle6}
+          onPress={() => {
+            this.props.closeDrawer();
+          }}>
+          Folder
         </Button>
       </View>
     );
