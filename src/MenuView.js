@@ -1,6 +1,7 @@
 import React from 'react-native';
 import Button from 'apsl-react-native-button';
 
+import { SidemenuContent } from './SidemenuContent';
 import { sideMenuWrapper } from './sideMenuWrapper';
 
 const {
@@ -111,5 +112,5 @@ const styles = StyleSheet.create({
 });
 
 // exporting the component wrapped with a side-menu drawer menu
-export const MenuView = sideMenuWrapper(MenuViewContent);
+export const MenuView = sideMenuWrapper(MenuViewContent, SidemenuContent);
 
