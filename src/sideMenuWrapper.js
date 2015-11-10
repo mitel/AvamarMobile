@@ -26,8 +26,8 @@ const sidebarHOC = WrappedComponent => React.createClass({
               content={<SidemenuContent />}
               openDrawerOffset={90}
               type="displace"
-              side="left"
-              acceptTap>
+              // acceptTap
+              side="left">
         <WrappedComponent {...this.props}/>
       </Drawer>
     );
