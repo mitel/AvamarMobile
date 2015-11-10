@@ -6,7 +6,7 @@ const {
   StyleSheet,
 } = React;
 
-export const SidebarMenu = React.createClass({
+export const SidemenuContent = React.createClass({
   render: function() {
     return (
       <View style={styles.container}>
