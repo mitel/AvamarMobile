@@ -35,17 +35,30 @@ const LoginViewContent = React.createClass({
     return {
       username: '',
       password: '',
+      message: '',
     };
   },
 
   // logs in and then pushes the next page into the navigator
   _onSubmitPressed: async function() {
+    this.setState({...this.state, message: ''});
     const { username, password } = this.state;
-    const resp = await this.props.falcorCall(['session', 'login'], [username, password]);
-    if (resp.json.authToken) {
-      // console.log(resp.json.authToken);
-      this.props.navigator.push({ id: 'menu' });
-    }
+
+    // testing, delete this line and uncomment below
+    this.props.navigator.replace({ id: 'menu' });
+
+    // try {
+    //   // equivallent to falcor.model.call(...)
+    //   const resp = await this.props.falcorCall(['session', 'login'], [username, password]);
+    //   if ('json.authToken' in resp) { // test if resp object has json.authToken property
+    //     this.props.navigator.push({ id: 'menu' });
+    //   } else {
+    //     this.setState({...this.state, message: 'no authtoken received'});
+    //   }
+    // } catch (err) {
+    //   console.log(err);
+    //   this.setState({...this.state, message: 'error..'});
+    // }
   },
 
   render: function() {
@@ -70,6 +83,9 @@ const LoginViewContent = React.createClass({
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableHighlight>
         </View>
+        <Text style={styles.title}>
+          {this.state.message}
+        </Text>
       </View>
     );
   },

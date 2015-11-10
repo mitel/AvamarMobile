@@ -1,24 +1,28 @@
-import 'regenerator/runtime';
+import 'regenerator/runtime'; // for supporting ES7 async/await
 import React from 'react-native';
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+
+import {
+  createStore,
+  combineReducers,
+  applyMiddleware,
+  compose,
+} from 'redux';
 import { Provider } from 'react-redux/native';
-import { createFalcorMiddleware, falcorReducer } from 'redux-falcor';
+
+import {
+  createFalcorMiddleware,
+  falcorReducer,
+} from 'redux-falcor';
 import falcor from 'falcor';
 import HttpDataSource from 'falcor-http-datasource';
+
 import { LoginView } from './LoginView';
 import { MenuView } from './MenuView';
 
 const {
 	AppRegistry,
-  // StyleSheet,
   Navigator,
 } = React;
-
-// const styles = StyleSheet.create({
-//   navigationContainer: {
-//     flex: 1,
-//   },
-// });
 
 const _reducer = combineReducers({
   entities: falcorReducer,

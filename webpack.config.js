@@ -33,6 +33,7 @@ var config = {
         path.resolve(__dirname, 'node_modules/redux'),
         path.resolve(__dirname, 'node_modules/redux-falcor'),
         path.resolve(__dirname, 'node_modules/react-redux'),
+        path.resolve(__dirname, 'node_modules/react-native-drawer'),
       ],
       loader: 'babel',
       query: {
