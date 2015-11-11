@@ -22,4 +22,3 @@ Quick start for testing the app in the iOS simulator on Mac:
 - open Apple Xcode and run/build
 
 This react-native app uses `react-native-webpack-server`, more detailed instructions at: https://github.com/mjohnston/react-native-webpack-server.
-
