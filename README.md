@@ -12,8 +12,6 @@ http://recordit.co/44j786nwlL
 
 Install Node.js - check the NVM project for that: https://github.com/creationix/nvm
 
-Clone this repository, open a terminal and run `npm install`.
-
 You need to also run an Avamar Server with the REST API package installed, plus the API-proxy at https://github.com/mitel/api-proxy.
 
 Quick start for testing the app in the iOS simulator on Mac:
