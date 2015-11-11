@@ -8,3 +8,18 @@ Bundled with webpack.
 
 http://recordit.co/44j786nwlL
 
+##Getting Started
+
+Install Node.js - check the NVM project for that: https://github.com/creationix/nvm
+
+Clone this repository, open a terminal and run `npm install`.
+
+You need to also run an Avamar Server with the REST API package installed, plus the API-proxy at https://github.com/mitel/api-proxy.
+
+Quick start for testing the app in the iOS simulator on Mac:
+- `npm install`
+- `npm start`
+- open Apple Xcode and run/build
+
+This react-native app uses `react-native-webpack-server`, more detailed instructions at: https://github.com/mjohnston/react-native-webpack-server.
+
